@@ -22,10 +22,8 @@ const CustomCursor = () => {
   // Vérifier si un modal est ouvert via le hash
   useEffect(() => {
     const checkHash = () => {
-      setIsModalOpen(
-        window.location.hash === '#chatassistant' || 
-        window.location.hash === '#projects'
-      );
+      const hash = window.location.hash;
+      setIsModalOpen(hash === '#chatassistant' || hash === '#projects');
     };
 
     // Vérifier au chargement

@@ -2,7 +2,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ContactForm from './ContactForm.jsx';
-import CustomCursor from './CustomCursor';
 
 interface Message {
   id: number;
@@ -118,7 +117,6 @@ const ChatModal = ({ isOpen, onClose }: ChatModalProps) => {
           className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
           onClick={onClose}
         >
-          <CustomCursor isModalOpen={true} />
           <motion.div
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}

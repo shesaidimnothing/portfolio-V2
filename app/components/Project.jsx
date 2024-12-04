@@ -1,8 +1,7 @@
 'use client';
+import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import Modal from './Modal';
-import CustomCursor from './CustomCursor';
 
 const projects = [
   {
@@ -23,17 +22,11 @@ const projects = [
 ];
 
 export default function Project() {
-  const [selectedId, setSelectedId] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Gérer le hash pour les projets
   useEffect(() => {
     const checkHash = () => {
-      if (window.location.hash === '#projects') {
-        setIsModalOpen(true);
-      } else {
-        setIsModalOpen(false);
-      }
+      setIsModalOpen(window.location.hash === '#projects');
     };
 
     // Vérifier au chargement
@@ -44,8 +37,7 @@ export default function Project() {
     return () => window.removeEventListener('hashchange', checkHash);
   }, []);
 
-  const handleProjectClick = (id) => {
-    setSelectedId(id);
+  const handleProjectClick = () => {
     window.location.hash = 'projects';
     setIsModalOpen(true);
   };
@@ -53,13 +45,11 @@ export default function Project() {
   const handleClose = () => {
     window.location.hash = '';
     setIsModalOpen(false);
-    setSelectedId(null);
   };
 
   return (
     <section id="work-section" className="py-16">
       <motion.div 
-        id="work-section"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -67,7 +57,7 @@ export default function Project() {
       >
         <div className="text-center">
           <motion.button
-            onClick={() => handleProjectClick(projects[0].title)}
+            onClick={handleProjectClick}
             className="group"
             whileHover={{ scale: 1.05 }}
           >
@@ -95,11 +85,7 @@ export default function Project() {
         </div>
       </motion.div>
 
-      <Modal 
-        isOpen={isModalOpen} 
-        onClose={handleClose}
-        selectedId={selectedId}
-      >
+      <Modal isOpen={isModalOpen} onClose={handleClose}>
         <div className="space-y-8">
           <h2 className="text-4xl mb-8">Projects</h2>
           <div className="grid gap-6">
