@@ -1,6 +1,5 @@
 'use client';
 import { motion } from 'framer-motion';
-import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import ChatModal from './ChatModal';
 import CustomCursor from './CustomCursor';
@@ -8,6 +7,29 @@ import CustomCursor from './CustomCursor';
 export default function Header() {
   const [time, setTime] = useState('');
   const [isChatOpen, setIsChatOpen] = useState(false);
+
+  useEffect(() => {
+    // Vérifier si le hash est #chatassistant au chargement
+    if (window.location.hash === '#chatassistant') {
+      setIsChatOpen(true);
+    }
+
+    // Écouter les changements de hash
+    const handleHashChange = () => {
+      setIsChatOpen(window.location.hash === '#chatassistant');
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  const handleChatClick = () => {
+    if (!isChatOpen) {
+      window.location.hash = 'chatassistant';
+    } else {
+      window.location.hash = '';
+    }
+  };
 
   useEffect(() => {
     const updateTime = () => {
@@ -74,14 +96,17 @@ export default function Header() {
       <motion.button
         whileHover={{ scale: 1.05 }}
         className="px-4 py-2 border border-[#FFFEF2] rounded-full text-sm sm:text-base"
-        onClick={() => setIsChatOpen(true)}
+        onClick={handleChatClick}
       >
         LET'S TALK
       </motion.button>
 
       <ChatModal 
         isOpen={isChatOpen}
-        onClose={() => setIsChatOpen(false)}
+        onClose={() => {
+          window.location.hash = '';
+          setIsChatOpen(false);
+        }}
       />
     </header>
   );

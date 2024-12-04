@@ -10,13 +10,31 @@ interface Particle {
   size: number;
 }
 
-const CustomCursor = ({ isModalOpen }: { isModalOpen: boolean }) => {
+const CustomCursor = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isMoving, setIsMoving] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particlesRef = useRef<Particle[]>([]);
   const requestRef = useRef<number>();
   const timeoutRef = useRef<NodeJS.Timeout>();
+
+  // Vérifier si un modal est ouvert via le hash
+  useEffect(() => {
+    const checkHash = () => {
+      setIsModalOpen(
+        window.location.hash === '#chatassistant' || 
+        window.location.hash === '#projects'
+      );
+    };
+
+    // Vérifier au chargement
+    checkHash();
+
+    // Écouter les changements de hash
+    window.addEventListener('hashchange', checkHash);
+    return () => window.removeEventListener('hashchange', checkHash);
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -41,6 +59,7 @@ const CustomCursor = ({ isModalOpen }: { isModalOpen: boolean }) => {
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
+      // Désactiver l'effet quand un modal est ouvert
       if (isMoving && !isModalOpen) {
         for (let i = 0; i < 3; i++) {
           particlesRef.current.push(

@@ -1,7 +1,8 @@
 'use client';
-import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import Modal from './Modal';
+import CustomCursor from './CustomCursor';
 
 const projects = [
   {
@@ -22,10 +23,41 @@ const projects = [
 ];
 
 export default function Project() {
+  const [selectedId, setSelectedId] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  // Gérer le hash pour les projets
+  useEffect(() => {
+    const checkHash = () => {
+      if (window.location.hash === '#projects') {
+        setIsModalOpen(true);
+      } else {
+        setIsModalOpen(false);
+      }
+    };
+
+    // Vérifier au chargement
+    checkHash();
+
+    // Écouter les changements de hash
+    window.addEventListener('hashchange', checkHash);
+    return () => window.removeEventListener('hashchange', checkHash);
+  }, []);
+
+  const handleProjectClick = (id) => {
+    setSelectedId(id);
+    window.location.hash = 'projects';
+    setIsModalOpen(true);
+  };
+
+  const handleClose = () => {
+    window.location.hash = '';
+    setIsModalOpen(false);
+    setSelectedId(null);
+  };
+
   return (
-    <>
+    <section id="work-section" className="py-16">
       <motion.div 
         id="work-section"
         initial={{ opacity: 0, y: 50 }}
@@ -35,7 +67,7 @@ export default function Project() {
       >
         <div className="text-center">
           <motion.button
-            onClick={() => setIsModalOpen(true)}
+            onClick={() => handleProjectClick(projects[0].title)}
             className="group"
             whileHover={{ scale: 1.05 }}
           >
@@ -63,7 +95,11 @@ export default function Project() {
         </div>
       </motion.div>
 
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+      <Modal 
+        isOpen={isModalOpen} 
+        onClose={handleClose}
+        selectedId={selectedId}
+      >
         <div className="space-y-8">
           <h2 className="text-4xl mb-8">Projects</h2>
           <div className="grid gap-6">
@@ -85,6 +121,6 @@ export default function Project() {
           </div>
         </div>
       </Modal>
-    </>
+    </section>
   );
 } 

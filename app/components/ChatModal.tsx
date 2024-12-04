@@ -53,7 +53,12 @@ const chatFlow = {
   },
 };
 
-const ChatModal = ({ isOpen, onClose, setIsChatOpen }: { isOpen: boolean; onClose: () => void; setIsChatOpen: React.Dispatch<React.SetStateAction<boolean>> }) => {
+interface ChatModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const ChatModal = ({ isOpen, onClose }: ChatModalProps) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [showContactForm, setShowContactForm] = useState(false);
 
@@ -65,6 +70,18 @@ const ChatModal = ({ isOpen, onClose, setIsChatOpen }: { isOpen: boolean; onClos
       setShowContactForm(false);
     }
   }, [isOpen]);
+
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        window.location.hash = '';
+        onClose();
+      }
+    };
+
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, [onClose]);
 
   const handleOptionClick = (nextId: number | string, selectedText: string) => {
     if (nextId === 'contact') {
