@@ -21,8 +21,8 @@ function HeroCard({ title, description, specialization }) {
       viewport={{ once: true }}
       className="relative"
     >
-      <h2 className="text-7xl mb-8">{title}</h2>
-      <div className="flex justify-between text-sm mt-4">
+      <h2 className="text-4xl sm:text-5xl md:text-7xl mb-4 sm:mb-8">{title}</h2>
+      <div className="flex flex-col sm:flex-row justify-between text-xs sm:text-sm mt-4 gap-2 sm:gap-0">
         <div>{description}</div>
         <div>{specialization}</div>
       </div>

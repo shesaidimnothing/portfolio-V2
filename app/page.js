@@ -27,7 +27,7 @@ export default function Home() {
             transition={{ duration: 1 }}
             className="min-h-screen bg-black text-[#FFFEF2]"
           >
-            <div className="max-w-[2000px] mx-auto px-64 py-8">
+            <div className="max-w-[2000px] mx-auto px-4 sm:px-8 md:px-16 lg:px-32 xl:px-64 py-8">
               <Header />
               <Hero />
               <AboutSection />

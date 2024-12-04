@@ -52,7 +52,7 @@ export default function Header() {
   };
 
   return (
-    <header className="flex justify-between items-center py-4 sticky top-0 z-50 bg-black">
+    <header className="flex flex-col sm:flex-row justify-between items-center py-4 sticky top-0 z-50 bg-black gap-4">
       <CustomCursor isModalOpen={isChatOpen} />
       <motion.div 
         initial={{ opacity: 0 }}
@@ -65,7 +65,7 @@ export default function Header() {
         </div>
       </motion.div>
 
-      <nav className="flex gap-6">
+      <nav className="flex gap-4 sm:gap-6 text-sm sm:text-base">
         <button onClick={scrollToAbout} className="hover:opacity-70">ABOUT</button>
         <button onClick={scrollToWork} className="hover:opacity-70">WORK</button>
         <button onClick={scrollToContact} className="hover:opacity-70">CONTACT</button>
@@ -73,7 +73,7 @@ export default function Header() {
 
       <motion.button
         whileHover={{ scale: 1.05 }}
-        className="px-4 py-2 border border-[#FFFEF2] rounded-full"
+        className="px-4 py-2 border border-[#FFFEF2] rounded-full text-sm sm:text-base"
         onClick={() => setIsChatOpen(true)}
       >
         LET'S TALK
