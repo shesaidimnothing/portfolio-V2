@@ -37,7 +37,7 @@ export default function Contact() {
               <h3 className="text-sm tracking-wider opacity-70">SOCIALS</h3>
               <div className="space-y-2">
                 <a 
-                  href="https://www.linkedin.com/feed/?trk=404_page" 
+                  href="https://www.linkedin.com/in/hugo-pottier-707326263/" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="block text-xl hover:opacity-70 transition-opacity"
