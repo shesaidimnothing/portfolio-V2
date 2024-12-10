@@ -19,17 +19,12 @@ const CustomCursor = () => {
   const requestRef = useRef<number>();
   const timeoutRef = useRef<NodeJS.Timeout>();
 
-  // Vérifier si un modal est ouvert via le hash
   useEffect(() => {
     const checkHash = () => {
       const hash = window.location.hash;
       setIsModalOpen(hash === '#chatassistant' || hash === '#projects');
     };
-
-    // Vérifier au chargement
     checkHash();
-
-    // Écouter les changements de hash
     window.addEventListener('hashchange', checkHash);
     return () => window.removeEventListener('hashchange', checkHash);
   }, []);
@@ -56,8 +51,6 @@ const CustomCursor = () => {
       if (!ctx) return;
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      // Désactiver l'effet quand un modal est ouvert
       if (isMoving && !isModalOpen) {
         for (let i = 0; i < 3; i++) {
           particlesRef.current.push(

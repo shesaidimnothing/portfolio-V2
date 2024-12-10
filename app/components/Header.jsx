@@ -9,12 +9,10 @@ export default function Header() {
   const [isChatOpen, setIsChatOpen] = useState(false);
 
   useEffect(() => {
-    // Vérifier si le hash est #chatassistant au chargement
     if (window.location.hash === '#chatassistant') {
       setIsChatOpen(true);
     }
 
-    // Écouter les changements de hash
     const handleHashChange = () => {
       setIsChatOpen(window.location.hash === '#chatassistant');
     };
@@ -44,10 +42,8 @@ export default function Header() {
       setTime(parisTime);
     };
 
-    // Update time immediately
     updateTime();
 
-    // Update time every minute
     const interval = setInterval(updateTime, 60000);
 
     return () => clearInterval(interval);
@@ -79,7 +75,7 @@ export default function Header() {
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="flex items-center gap-4"
+        className="flex items-center gap-4 text-center sm:text-left"
       >
         <div className="text-sm">
           <div>PARIS, FRANCE</div>
