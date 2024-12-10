@@ -2,7 +2,6 @@
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import ChatModal from './ChatModal';
-import CustomCursor from './CustomCursor';
 
 export default function Header() {
   const [time, setTime] = useState('');
@@ -71,7 +70,6 @@ export default function Header() {
 
   return (
     <header className="flex flex-col sm:flex-row justify-between items-center py-4 sticky top-0 z-50 bg-black gap-4">
-      <CustomCursor isModalOpen={isChatOpen} />
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
