@@ -24,7 +24,11 @@ const CustomCursor = () => {
       const hash = window.location.hash;
       setIsModalOpen(hash === '#chatassistant' || hash === '#projects');
     };
+
+    // Vérifier au chargement
     checkHash();
+
+    // Écouter les changements de hash
     window.addEventListener('hashchange', checkHash);
     return () => window.removeEventListener('hashchange', checkHash);
   }, []);

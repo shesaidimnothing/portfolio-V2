@@ -2,22 +2,20 @@
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import Modal from './Modal';
+import Image from 'next/image';
 
 const projects = [
   {
-    title: "Project 1",
-    description: "UI/UX Design",
-    year: "2024"
+    title: "Site d'accueil agence immobilière",
+    description: "ReactJS Based APP,WebDevelopment",
+    year: "2024",
+    image: "/img/re-landingpage.png"
   },
   {
-    title: "Project 2",
-    description: "Web Development",
-    year: "2023"
-  },
-  {
-    title: "Project 3",
-    description: "Mobile App",
-    year: "2023"
+    title: "Application météo",
+    description: "ReactJS Based APP using OpenWeather API, WebDevelopment",
+    year: "2024",
+    image: "/img/weather-app.png"
   },
 ];
 
@@ -88,20 +86,33 @@ export default function Project() {
       <Modal isOpen={isModalOpen} onClose={handleClose}>
         <div className="space-y-8">
           <h2 className="text-4xl mb-8">Projects</h2>
-          <div className="grid gap-6">
+          <div className="grid gap-8">
             {projects.map((project, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="flex justify-between items-center border-b border-cream/20 pb-4"
+                className="flex flex-col md:flex-row gap-6 border-b border-cream/20 pb-8"
               >
-                <div>
-                  <h3 className="text-xl font-light">{project.title}</h3>
-                  <p className="text-sm text-cream/70">{project.description}</p>
+                {project.image && (
+                  <div className="w-full md:w-1/2 relative aspect-video rounded-lg overflow-hidden">
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      className="object-cover"
+                      style={{ maxHeight: '200px' }}
+                    />
+                  </div>
+                )}
+                <div className="flex flex-col justify-between w-full md:w-1/2">
+                  <div>
+                    <h3 className="text-xl font-light mb-2">{project.title}</h3>
+                    <p className="text-sm text-cream/70">{project.description}</p>
+                  </div>
+                  <div className="text-sm text-cream/50 mt-4">{project.year}</div>
                 </div>
-                <div className="text-sm text-cream/50">{project.year}</div>
               </motion.div>
             ))}
           </div>

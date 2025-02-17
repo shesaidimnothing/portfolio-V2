@@ -6,7 +6,6 @@ export default function Modal({ isOpen, onClose, children }) {
   useEffect(() => {
     const handleEscape = (e) => {
       if (e.key === 'Escape') {
-        window.location.hash = '';
         onClose();
       }
     };
@@ -30,7 +29,7 @@ export default function Modal({ isOpen, onClose, children }) {
             initial={{ opacity: 0, y: -100 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -100 }}
-            className="fixed inset-x-0 top-0 mx-auto w-full p-8 bg-black border-b border-[#FFFEF2] z-50"
+            className="fixed inset-x-0 top-1/4 mx-auto w-full max-w-3xl p-6 bg-[#1a1a1a] rounded-lg z-50"
           >
             <button 
               onClick={onClose}
