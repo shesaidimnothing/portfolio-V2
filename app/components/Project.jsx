@@ -64,7 +64,7 @@ export default function Project() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
             >
-              +20
+              +2
             </motion.div>
             <div className="mt-4 text-sm tracking-wider group-hover:text-cream/70 transition-colors">
               TOTAL PROJECTS

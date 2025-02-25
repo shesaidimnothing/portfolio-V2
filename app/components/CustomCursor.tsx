@@ -45,10 +45,10 @@ const CustomCursor = () => {
     const createParticle = (x: number, y: number): Particle => ({
       x,
       y,
-      alpha: 0.8,
-      dx: (Math.random() - 0.5) * 4,
-      dy: (Math.random() - 0.5) * 4,
-      size: Math.random() * 15 + 8
+      alpha: 0.5,
+      dx: (Math.random() - 0.5) * 2,
+      dy: (Math.random() - 0.5) * 2,
+      size: Math.random() * 8 + 4
     });
 
     const animate = () => {
@@ -56,7 +56,7 @@ const CustomCursor = () => {
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       if (isMoving && !isModalOpen) {
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < 2; i++) {
           particlesRef.current.push(
             createParticle(mousePosition.x, mousePosition.y)
           );
