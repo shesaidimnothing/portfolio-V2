@@ -10,9 +10,18 @@ export default function Modal({ isOpen, onClose, children }) {
       }
     };
 
+    // Empêcher le scroll du body quand le modal est ouvert
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    }
+
     window.addEventListener('keydown', handleEscape);
-    return () => window.removeEventListener('keydown', handleEscape);
-  }, [onClose]);
+    return () => {
+      window.removeEventListener('keydown', handleEscape);
+      // Réactiver le scroll du body quand le modal est fermé
+      document.body.style.overflow = 'unset';
+    };
+  }, [onClose, isOpen]);
 
   return (
     <AnimatePresence>
@@ -29,15 +38,19 @@ export default function Modal({ isOpen, onClose, children }) {
             initial={{ opacity: 0, y: -100 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -100 }}
-            className="fixed inset-x-0 top-1/4 mx-auto w-full max-w-3xl p-6 bg-[#1a1a1a] rounded-lg z-50"
+            className="fixed inset-x-0 top-[10%] mx-auto w-full max-w-3xl h-[80vh] bg-[#1a1a1a] rounded-lg z-50 overflow-hidden flex flex-col"
           >
-            <button 
-              onClick={onClose}
-              className="absolute top-4 right-4 text-2xl hover:opacity-70"
-            >
-              ×
-            </button>
-            {children}
+            <div className="p-6 relative">
+              <button 
+                onClick={onClose}
+                className="absolute top-4 right-4 text-2xl hover:opacity-70"
+              >
+                ×
+              </button>
+            </div>
+            <div className="flex-1 overflow-y-auto px-6 pb-6">
+              {children}
+            </div>
           </motion.div>
         </>
       )}

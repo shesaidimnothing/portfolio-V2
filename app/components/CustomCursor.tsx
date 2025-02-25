@@ -25,10 +25,7 @@ const CustomCursor = () => {
       setIsModalOpen(hash === '#chatassistant' || hash === '#projects');
     };
 
-    // Vérifier au chargement
     checkHash();
-
-    // Écouter les changements de hash
     window.addEventListener('hashchange', checkHash);
     return () => window.removeEventListener('hashchange', checkHash);
   }, []);
@@ -121,3 +118,4 @@ const CustomCursor = () => {
 };
 
 export default CustomCursor;
+

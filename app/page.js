@@ -8,7 +8,7 @@ import Project from './components/Project';
 import Contact from './components/Contact';
 import Loader from './components/Loader.jsx';
 import NeonSeparator from './components/NeonSeparator.jsx';
-import CustomCursor from './components/CustomCursor.tsx';
+import CustomCursor from './components/CustomCursor';
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
