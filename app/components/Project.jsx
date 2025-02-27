@@ -53,23 +53,17 @@ export default function Project() {
         viewport={{ once: true }}
         className="grid grid-cols-1 md:grid-cols-2 gap-20 py-20"
       >
-        <div className="text-center">
-          <motion.button
-            onClick={handleProjectClick}
-            className="group"
-            whileHover={{ scale: 1.05 }}
+        <div className="text-center flex flex-col items-center">
+          <motion.div 
+            className="text-8xl font-light group-hover:text-cream/70 transition-colors"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
           >
-            <motion.div 
-              className="text-8xl font-light group-hover:text-cream/70 transition-colors"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-            >
-              +2
-            </motion.div>
-            <div className="mt-4 text-sm tracking-wider group-hover:text-cream/70 transition-colors">
-              TOTAL PROJECTS
-            </div>
-          </motion.button>
+            +2
+          </motion.div>
+          <div className="mt-4 text-sm tracking-wider">
+            TOTAL PROJECTS
+          </div>
         </div>
         <div className="text-center">
           <motion.div 
@@ -82,6 +76,17 @@ export default function Project() {
           <div className="mt-4 text-sm tracking-wider">YEARS OF EXPERIENCE</div>
         </div>
       </motion.div>
+      
+      <div className="flex justify-center mt-8">
+        <motion.button
+          onClick={handleProjectClick}
+          className="px-6 py-3 border border-[#FFFEF2] rounded-full text-base hover:bg-[#FFFEF2] hover:text-black transition-colors"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          See My Projects
+        </motion.button>
+      </div>
 
       <Modal isOpen={isModalOpen} onClose={handleClose}>
         <div className="space-y-8">
