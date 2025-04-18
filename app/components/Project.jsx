@@ -6,6 +6,12 @@ import Image from 'next/image';
 
 const projects = [
   {
+    title: "REBUY-R",
+    description: "NextJS/ReactJS/PostgreSQL Based APP for second-hand marketplace, WebDevelopment",
+    year: "2024",
+    image: "/img/rebuyr.png"
+  },
+  {
     title: "Site d'accueil agence immobilière",
     description: "ReactJS Based APP,WebDevelopment",
     year: "2024",
