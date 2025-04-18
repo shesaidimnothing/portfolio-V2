@@ -9,7 +9,7 @@ const projects = [
     title: "REBUY-R",
     description: "NextJS/ReactJS/PostgreSQL Based APP for second-hand marketplace, WebDevelopment",
     year: "2024",
-    image: "/img/rebuyr.png"
+    image: "/img/REBUYR.PNG"
   },
   {
     title: "Site d'accueil agence immobilière",
@@ -65,7 +65,7 @@ export default function Project() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
           >
-            +2
+            +3
           </motion.div>
           <div className="mt-4 text-sm tracking-wider">
             TOTAL PROJECTS
@@ -112,8 +112,10 @@ export default function Project() {
                       src={project.image}
                       alt={project.title}
                       fill
-                      className="object-cover"
-                      style={{ maxHeight: '200px' }}
+                      className="object-cover object-center"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      priority={index === 0}
+                      style={{ maxHeight: '300px' }}
                     />
                   </div>
                 )}
