@@ -85,7 +85,6 @@ export default function Header() {
       <nav className="flex gap-4 sm:gap-6 text-sm sm:text-base">
         <button onClick={scrollToAbout} className="hover:opacity-70">ABOUT</button>
         <button onClick={scrollToWork} className="hover:opacity-70">WORK</button>
-        <Link href="/veille" className="hover:opacity-70">VEILLE</Link>
         <button onClick={scrollToContact} className="hover:opacity-70">CONTACT</button>
       </nav>
 
