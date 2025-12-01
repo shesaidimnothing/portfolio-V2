@@ -1,8 +1,12 @@
 'use client';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Modal({ isOpen, onClose, children }) {
+  const scrollContainerRef = useRef(null);
+  const previousHashRef = useRef(null);
+  const pageScrollPositionRef = useRef(0);
+
   useEffect(() => {
     const handleEscape = (e) => {
       if (e.key === 'Escape') {
@@ -12,16 +16,60 @@ export default function Modal({ isOpen, onClose, children }) {
 
     // Empêcher le scroll du body quand le modal est ouvert
     if (isOpen) {
+      // Save the current page scroll position
+      pageScrollPositionRef.current = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
+      // Store the current hash when modal opens
+      previousHashRef.current = window.location.hash;
+      // Prevent body scroll and maintain scroll position
       document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${pageScrollPositionRef.current}px`;
+      document.body.style.width = '100%';
+    } else {
+      // Restore page scroll position when modal closes
+      document.body.style.overflow = 'unset';
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      // Restore scroll position
+      window.scrollTo(0, pageScrollPositionRef.current);
     }
 
     window.addEventListener('keydown', handleEscape);
     return () => {
       window.removeEventListener('keydown', handleEscape);
-      // Réactiver le scroll du body quand le modal est fermé
-      document.body.style.overflow = 'unset';
+      // Cleanup: ensure body styles are reset
+      if (!isOpen) {
+        document.body.style.overflow = 'unset';
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.width = '';
+      }
     };
   }, [onClose, isOpen]);
+
+  // Save scroll position when closing
+  useEffect(() => {
+    if (!isOpen && scrollContainerRef.current && previousHashRef.current) {
+      const scrollPosition = scrollContainerRef.current.scrollTop;
+      const hash = previousHashRef.current || 'default';
+      localStorage.setItem(`modal-scroll-${hash}`, scrollPosition.toString());
+    }
+  }, [isOpen]);
+
+  // Restore scroll position when opening
+  useEffect(() => {
+    if (isOpen && scrollContainerRef.current) {
+      // Small delay to ensure the content is rendered
+      setTimeout(() => {
+        const hash = window.location.hash || 'default';
+        const savedScroll = localStorage.getItem(`modal-scroll-${hash}`);
+        if (savedScroll) {
+          scrollContainerRef.current.scrollTop = parseInt(savedScroll, 10);
+        }
+      }, 100);
+    }
+  }, [isOpen]);
 
   return (
     <AnimatePresence>
@@ -48,7 +96,10 @@ export default function Modal({ isOpen, onClose, children }) {
                 ×
               </button>
             </div>
-            <div className="flex-1 overflow-y-auto px-6 pb-6">
+            <div 
+              ref={scrollContainerRef}
+              className="flex-1 overflow-y-auto px-6 pb-6"
+            >
               {children}
             </div>
           </motion.div>

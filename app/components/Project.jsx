@@ -6,16 +6,22 @@ import Image from 'next/image';
 
 const projects = [
   {
+    title: "Daily Psicho",
+    description: "Daily Psychology/Philosophy website to learn and discover more about our world and our ideas.",
+    year: "2024",
+    image: "/img/daily-psicho.png"
+  },
+  {
+    title: "Text to Speech",
+    description: "A simple text to speech AI software to recognize audio played on VB Virtual Cable and answer questions based on ollama and the Llama3.2 model.",
+    year: "2024",
+    image: "/img/text-to-speech.png"
+  },
+  {
     title: "REBUY-R",
     description: "NextJS/ReactJS/PostgreSQL Based APP for second-hand marketplace, WebDevelopment",
     year: "2024",
     image: "/img/REBUYR.PNG"
-  },
-  {
-    title: "Site d'accueil agence immobilière",
-    description: "ReactJS Based APP,WebDevelopment",
-    year: "2024",
-    image: "/img/re-landingpage.png"
   },
   {
     title: "Application météo",
@@ -23,6 +29,13 @@ const projects = [
     year: "2024",
     image: "/img/weather-app.png"
   },
+  {
+    title: "Site d'accueil agence immobilière",
+    description: "ReactJS Based APP, WebDevelopment",
+    year: "2024",
+    image: "/img/re-landingpage.png"
+  },
+
 ];
 
 export default function Project() {
@@ -65,7 +78,7 @@ export default function Project() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
           >
-            +3
+            +5
           </motion.div>
           <div className="mt-4 text-sm tracking-wider">
             TOTAL PROJECTS
@@ -77,7 +90,7 @@ export default function Project() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
           >
-            +1
+            +3
           </motion.div>
           <div className="mt-4 text-sm tracking-wider">YEARS OF EXPERIENCE</div>
         </div>
